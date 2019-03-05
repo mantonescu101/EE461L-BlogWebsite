@@ -32,7 +32,20 @@
    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css" />
  </head>
 
-
+ <body>
+<div class="header">
+  <h2>The Summoner's Rift</h2>
+  <h5 style="color:#069"> By: Jason and Mircea</h5>
+</div>
+<div class="row">
+  <div class="leftcolumn">
+    <div class="card">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Dec 7, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
 
 
 
@@ -60,21 +73,21 @@
 
 %>
 
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
+<%-- <p>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
-
+ --%>
 <%
 
     } else {
 
 %>
 
-<p>Hello!
+<%-- <p>Hello!
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
-to include your name with greetings you post.</p>
+to include your name with greetings you post.</p> --%>
 
 <%
 
@@ -102,15 +115,15 @@ to include your name with greetings you post.</p>
 
         %>
 
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
-
+<%--         <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
+ --%>
         <%
 
     } else {
 
         %>
 
-        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
+        <%-- <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p> --%>
 
         <%
 
@@ -120,13 +133,16 @@ to include your name with greetings you post.</p>
             
             pageContext.setAttribute("greeting_titleBox", greeting.getProperty("titleBox")); //content
 
+            pageContext.setAttribute("greeting_date", greeting.getProperty("RANDOM DATE"));
 
             if (greeting.getProperty("user") == null) {
 
                 %>
-
-                <p>An anonymous person wrote:</p>
-
+                
+					<div class="alert">
+					  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+					  This is an alert box.
+					</div>
                 <%
 
             } else {
@@ -137,18 +153,21 @@ to include your name with greetings you post.</p>
 
                 %>
 
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
-
+    			  <div class="leftcolumn">
+    			
+    			<div class="card">
+    			<h2>${fn:escapeXml(greeting_titleBox)}</h2>
+    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5>${fn:escapeXml(greeting_date)}</h5>
+    			<hr>
+    			      
+    			
+                <p>${fn:escapeXml(greeting_content)}</p> 
+    			</div>
+    			</div>
                 <%
 
             }
 
-            %>
-
-			<blockquote>${fn:escapeXml(greeting_titleBox)}</blockquote> 
-            <blockquote>${fn:escapeXml(greeting_content)}</blockquote> 
-
-            <%
 
         }
 
@@ -160,7 +179,7 @@ to include your name with greetings you post.</p>
 
     <form action="/sign" method="post">
 
-      <div><textarea name="titleBox" rows="1" cols="60">Title</textarea></div> 
+      <div><textarea name="titleBox" rows="1" cols="60">Title</textarea></div>
 
       <div><textarea name="content" rows="5" cols="60">Content</textarea></div>
 
@@ -171,30 +190,10 @@ to include your name with greetings you post.</p>
     </form>
 
  
-  <body>
 
- <body>
-<div class="header">
-  <h2>The Summoner's Rift</h2>
-  <h5 style="color:#069"> By: Jason and Mircea</h5>
-</div>
 
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    </div>
-    <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Sep 2, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    </div>
+
+
   </div>
   <div class="rightcolumn">
     <div class="card">
@@ -203,8 +202,9 @@ to include your name with greetings you post.</p>
       <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
     </div>
    <div class="card">
-      <h2>Login:</h2>
-      <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+         <h2>Login:</h2>
+         <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
+         <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a>
     </div>
     <div class="card">
       <h3>Subscription</h3>
