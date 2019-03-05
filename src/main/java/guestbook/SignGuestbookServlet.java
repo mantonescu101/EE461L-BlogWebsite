@@ -60,6 +60,8 @@ public class SignGuestbookServlet extends HttpServlet {
         Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
 
         String content = req.getParameter("content");
+        
+        String title = req.getParameter("titleBox");
 
         Date date = new Date();
 
@@ -70,7 +72,10 @@ public class SignGuestbookServlet extends HttpServlet {
         greeting.setProperty("date", date);
 
         greeting.setProperty("content", content);
+        
+        greeting.setProperty("titleBox", title);
 
+        
  
 
         DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
