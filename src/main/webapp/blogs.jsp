@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="java.util.List" %>
 
@@ -33,12 +33,15 @@
  </head>
 
  <body>
+
+ <body>
 <div class="header">
-  <h2>The Summoner's Rift</h2>
-  <h5 style="color:#069"> By: Jason and Mircea</h5>
+  <h2>All Blogs!</h2>
+  <%-- <h5 style="color:#069"> By: Jason and Mircea</h5> --%>
 </div>
+
 <div class="row">
-  <div class="leftcolumn">
+  <%-- <div class="leftcolumn">
     <div class="card">
       <h2>TITLE HEADING</h2>
       <h5>Title description, Dec 7, 2017</h5>
@@ -46,6 +49,38 @@
       <p>Some text..</p>
       <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
     </div>
+    <div class="card">
+      <h2>TITLE HEADING</h2>
+      <h5>Title description, Sep 2, 2017</h5>
+      <div class="fakeimg" style="height:200px;">Image</div>
+      <p>Some text..</p>
+      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+    </div>
+  </div> --%>
+  <%-- <div class="rightcolumn">
+    <div class="card">
+      <h2>About Me</h2>
+      <div class="fakeimg" style="height:100px;">Image</div>
+      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+    </div>
+   <div class="card">
+      <h2>Login</h2>
+
+      <p>Put Login Link here</p>
+    </div>
+    <div class="card">
+      <h3>Subscription</h3>
+          <input type="text"><br>
+          <button class="button">Subscribe</button>
+          <button class="button">Unsubscribe</button>
+    </div>
+  </div> --%>
+</div>
+
+<div class="footer">
+  <h2>Footer</h2>
+</div>
+
 
 
 
@@ -73,21 +108,21 @@
 
 %>
 
-<%-- <p>Hello, ${fn:escapeXml(user.nickname)}! (You can
+<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
 <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
- --%>
+
 <%
 
     } else {
 
 %>
 
-<%-- <p>Hello!
+<p>Hello!
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
-to include your name with greetings you post.</p> --%>
+to include your name with greetings you post.</p>
 
 <%
 
@@ -115,34 +150,30 @@ to include your name with greetings you post.</p> --%>
 
         %>
 
-<%--         <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
- --%>
+        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
+
         <%
 
     } else {
 
         %>
 
-        <%-- <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p> --%>
+        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
 
         <%
 
         for (Entity greeting : greetings) {
 
-            pageContext.setAttribute("greeting_content", greeting.getProperty("content")); //content
+            pageContext.setAttribute("greeting_content",
 
-            pageContext.setAttribute("greeting_titleBox", greeting.getProperty("titleBox")); //content
-
-            pageContext.setAttribute("greeting_date", greeting.getProperty("RANDOM DATE"));
+                                     greeting.getProperty("content"));
 
             if (greeting.getProperty("user") == null) {
 
                 %>
 
-					<div class="alert">
-					  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-					  This is an alert box.
-					</div>
+                <p>An anonymous person wrote:</p>
+
                 <%
 
             } else {
@@ -153,21 +184,17 @@ to include your name with greetings you post.</p> --%>
 
                 %>
 
-    			  <div class="leftcolumn">
+                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
 
-    			<div class="card">
-    			<h2>${fn:escapeXml(greeting_titleBox)}</h2>
-    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5>${fn:escapeXml(greeting_date)}</h5>
-    			<hr>
-
-
-                <p>${fn:escapeXml(greeting_content)}</p>
-    			</div>
-    			</div>
                 <%
 
             }
 
+            %>
+
+            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
+
+            <%
 
         }
 
@@ -179,46 +206,13 @@ to include your name with greetings you post.</p> --%>
 
     <form action="/sign" method="post">
 
-      <div><textarea name="titleBox" rows="1" cols="60">Title</textarea></div>
+      <div><textarea name="content" rows="3" cols="60"></textarea></div>
 
-      <div><textarea name="content" rows="5" cols="60">Content</textarea></div>
-
-      <div><input type="submit" value="Submit Blog Post" /></div>
+      <div><input type="submit" value="Post Greeting" /></div>
 
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
     </form>
-
-
-
-
-
-
-  </div>
-  <div class="rightcolumn">
-    <div class="card">
-      <h2>About Me</h2>
-      <div class="fakeimg" style="height:100px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    </div>
-   <div class="card">
-         <h2>Login:</h2>
-         <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
-         <a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">Sign out</a>
-    </div>
-    <div class="card">
-      <h3>Subscription</h3>
-          <input type="text"><br>
-          <button class="button">Subscribe</button>
-          <button class="button">Unsubscribe</button>
-    </div>
-  </div>
-</div>
-
-<div class="footer">
-  <h2>Footer</h2>
-  <a href="blogs.jsp">All Blogs</a>
-</div>
 
 
 
