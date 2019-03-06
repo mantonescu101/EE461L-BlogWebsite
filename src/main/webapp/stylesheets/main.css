@@ -10,6 +10,12 @@ body {
   background: #f1f1f1;
 }
 
+.card img
+{
+ max-width: 400px;
+ max-height: 400px;
+}
+
 /* Header/Blog Title */
 .header {
   padding: 30px;

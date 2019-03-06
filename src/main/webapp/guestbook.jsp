@@ -40,12 +40,17 @@
 <div class="row">
   <div class="leftcolumn">
     <div class="card">
-      <h2>TITLE HEADING</h2>
-      <h5>Title description, Dec 7, 2017</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text..</p>
-      <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+      <h2>About Our Blog</h2>
+      <img src="league.jpg" alt="Italian Trulli">
+      
+      <h5>Your one-stop League of Legends blog</h5>
+      
+      <p>Speak to Mircea and Jason for development tips.</p>
+      <p>This is our blog, we will talk about league of legends and other moba sports!</p>
     </div>
+
+<br>
+
 
 
 
@@ -133,7 +138,7 @@ to include your name with greetings you post.</p> --%>
 
             pageContext.setAttribute("greeting_titleBox", greeting.getProperty("titleBox")); //content
 
-            pageContext.setAttribute("greeting_date", greeting.getProperty("RANDOM DATE"));
+            pageContext.setAttribute("greeting_date", greeting.getProperty("date"));
 
             if (greeting.getProperty("user") == null) {
 
@@ -157,7 +162,7 @@ to include your name with greetings you post.</p> --%>
 
     			<div class="card">
     			<h2>${fn:escapeXml(greeting_titleBox)}</h2>
-    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5>${fn:escapeXml(greeting_date)}</h5>
+    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5 style="color:#D3D3D3">${fn:escapeXml(greeting_date)}</h5>
     			<hr>
 
 
@@ -174,6 +179,7 @@ to include your name with greetings you post.</p> --%>
     }
 
 %>
+
 
 
 
@@ -216,8 +222,9 @@ to include your name with greetings you post.</p> --%>
 </div>
 
 <div class="footer">
-  <h2>Footer</h2>
-  <a href="blogs.jsp">All Blogs</a>
+  <h2>
+  <a href="blogs.jsp">See More Blogs</a>
+  </h2>
 </div>
 
 

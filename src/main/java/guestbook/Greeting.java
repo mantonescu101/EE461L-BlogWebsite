@@ -27,6 +27,10 @@ public class Greeting implements Comparable<Greeting> {
         this.guestbookName = Key.create(Guestbook.class, guestbookName);
         date = new Date();
     }
+    
+    public Date getDate() {
+    	return date;
+    }
     public User getUser() {
         return user;
     }
