@@ -77,11 +77,6 @@
   </div> --%>
 </div>
 
-<div class="footer">
-  <h2>Footer</h2>
-</div>
-
-
 
 
 
@@ -107,22 +102,22 @@
       pageContext.setAttribute("user", user);
 
 %>
-
+<%-- 
 <p>Hello, ${fn:escapeXml(user.nickname)}! (You can
 
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p> --%>
 
 <%
 
-    } else {
+   // } else {
 
 %>
 
-<p>Hello!
+<%-- <p>Hello!
 
 <a href="<%= userService.createLoginURL(request.getRequestURI()) %>">Sign in</a>
 
-to include your name with greetings you post.</p>
+to include your name with greetings you post.</p> --%>
 
 <%
 
@@ -150,7 +145,7 @@ to include your name with greetings you post.</p>
 
         %>
 
-        <p>Guestbook '${fn:escapeXml(guestbookName)}' has no messages.</p>
+        <p>Blog '${fn:escapeXml(guestbookName)}' has no Posts.</p>
 
         <%
 
@@ -158,25 +153,24 @@ to include your name with greetings you post.</p>
 
         %>
 
-        <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p>
+        <%-- <p>Messages in Guestbook '${fn:escapeXml(guestbookName)}'.</p> --%>
 
         <%
 
-        for (Entity greeting : greetings) {
+        
 
-            pageContext.setAttribute("greeting_content",
 
-                                     greeting.getProperty("content"));
 
-            if (greeting.getProperty("user") == null) {
+                for (Entity greeting : greetings) {
 
-                %>
+            pageContext.setAttribute("greeting_content", greeting.getProperty("content")); //content
 
-                <p>An anonymous person wrote:</p>
+            pageContext.setAttribute("greeting_titleBox", greeting.getProperty("titleBox")); //content
 
-                <%
+            pageContext.setAttribute("greeting_date", greeting.getProperty("date"));
 
-            } else {
+            if (greeting.getProperty("user") != null) {
+
 
                 pageContext.setAttribute("greeting_user",
 
@@ -184,17 +178,20 @@ to include your name with greetings you post.</p>
 
                 %>
 
-                <p><b>${fn:escapeXml(greeting_user.nickname)}</b> wrote:</p>
+    			 <!--  <div class="leftcolumn"> -->
 
+    			<div class="card">
+    			<h2>${fn:escapeXml(greeting_titleBox)}</h2>
+    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5 style="color:#D3D3D3">${fn:escapeXml(greeting_date)}</h5>
+    			<hr>
+
+
+                <p>${fn:escapeXml(greeting_content)}</p>
+    			</div>
+    			<!-- </div> -->
                 <%
 
             }
-
-            %>
-
-            <blockquote>${fn:escapeXml(greeting_content)}</blockquote>
-
-            <%
 
         }
 
@@ -203,7 +200,14 @@ to include your name with greetings you post.</p>
 %>
 
 
+<div class="footer">
+  <h2>Footer</h2>
+</div>
 
+
+
+
+<%-- 
     <form action="/sign" method="post">
 
       <div><textarea name="content" rows="3" cols="60"></textarea></div>
@@ -212,7 +216,7 @@ to include your name with greetings you post.</p>
 
       <input type="hidden" name="guestbookName" value="${fn:escapeXml(guestbookName)}"/>
 
-    </form>
+    </form> --%>
 
 
 
