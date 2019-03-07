@@ -1,4 +1,4 @@
-%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!-- %@ page contentType="text/html;charset=UTF-8" language="java" %> -->
 
 <%@ page import="java.util.List" %>
 
@@ -36,7 +36,7 @@
 
  <body>
 <div class="header">
-  <h2>All Blogs!</h2>
+  <h2>All Posts!</h2>
   <%-- <h5 style="color:#069"> By: Jason and Mircea</h5> --%>
 </div>
 
@@ -201,7 +201,9 @@ to include your name with greetings you post.</p> --%>
 
 
 <div class="footer">
-  <h2>Footer</h2>
+    <h2>
+  <a href="guestbook.jsp">Back To Main Page</a>
+  </h2>
 </div>
 
 
