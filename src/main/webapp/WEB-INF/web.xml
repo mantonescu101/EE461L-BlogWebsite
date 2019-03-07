@@ -48,6 +48,27 @@
 
     </servlet-mapping>
     
+ 
+        <servlet>
+        <servlet-name>cron</servlet-name>
+
+        <servlet-class>guestbook.CronJob</servlet-class>
+
+    </servlet>
+
+    <servlet-mapping>
+
+        <servlet-name>cron</servlet-name>
+
+        <url-pattern>/CronJob</url-pattern>
+
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    
     
     <filter>
 
