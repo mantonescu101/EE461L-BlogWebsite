@@ -139,7 +139,7 @@ to include your name with greetings you post.</p> --%>
 
 	Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDirection.DESCENDING).addSort("date", Query.SortDirection.DESCENDING);
 
-    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(5));
+    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(50));
 
     if (greetings.isEmpty()) {
 
