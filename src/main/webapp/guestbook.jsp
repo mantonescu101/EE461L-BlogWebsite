@@ -210,9 +210,29 @@ to include your name with greetings you post.</p> --%>
     </div>
     <div class="card">
       <h3>Subscription</h3>
-          <input type="text"><br>
-          <button class="button">Subscribe</button>
-          <button class="button">Unsubscribe</button>
+          
+          
+          
+          
+    <form action="/subscribe" method="post">
+
+           <div><input type="submit" value="Subscribe"></div>
+           <div><textarea name="emailBox" rows="1" cols="20">Enter Email:</textarea></div>
+           <input type="hidden" name="sub" value="true"/>
+           
+
+    </form>
+    
+    <form action="/subscribe" method="post">
+
+           <div><input type="submit" value="Unsubscribe"></div>
+            <div><textarea name="emailBoxUnsub" rows="1" cols="10">Enter Email:</textarea></div>
+            <input type="hidden" name="sub" value="false"/>
+           
+           
+
+    </form>
+          
     </div>
   </div>
 </div>

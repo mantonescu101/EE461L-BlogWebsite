@@ -41,50 +41,68 @@ public class CronJob extends HttpServlet {
 	
 		String guestbookName = req.getParameter("guestbookName");
 		
+		if (guestbookName == null) {
+
+	        guestbookName = "default";
+
+	    }
+		
 	    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
 	    UserService userService = UserServiceFactory.getUserService();
 	    User user = userService.getCurrentUser();
-
+	    
+	    System.out.println("guestbook" + guestbookName);
+	    
 	    Key guestbookKey = KeyFactory.createKey("Guestbook", guestbookName);
 	    
 		Query query = new Query("Greeting", guestbookKey).addSort("user", Query.SortDirection.DESCENDING).addSort("date", Query.SortDirection.DESCENDING);
 
-	    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(50));
+	    List<Entity> greetings = datastore.prepare(query).asList(FetchOptions.Builder.withLimit(10));
+	    
 	    
 	    List<Entity> recentPosts = new ArrayList<>();
+	    String message = "Here are today's posts:\n\n";
 
 	    Entity today = new Entity("Greeting", guestbookKey);
-	    
-	    for(Entity post : greetings) {
-	    	Date date = (Date)post.getProperty("date");
+    
+	    for(Entity greeting : greetings) {
+	    	
+	    	
+	    	Date date = (Date)greeting.getProperty("date");
 	    	 
 	    	Calendar cal = Calendar.getInstance();
 	    	cal.setTime(date);
 	    	if( Calendar.DATE == cal.DATE) {
-	    		recentPosts.add(post);
+	    		recentPosts.add(greeting);
 	    	}
+	    }
+	    
+	    if(recentPosts.isEmpty()) {
+	    	message = "No new posts!";
+	    }
+	    for(Entity recent : recentPosts) {
+	    	message += recent.getProperty("user") + "wrote:\n";
+	    	message += recent.getProperty("titleBox") + ":\n";
+	    	message += recent.getProperty("content") + "\n\n";
 	    }
 	    
 	
 		Properties props = new Properties();
 		Session session = Session.getDefaultInstance(props, null);
 
+		List<String> emails = SubcribeUser.emails;
+		
 		try {
 		  Message msg = new MimeMessage(session);
 		  msg.setFrom(new InternetAddress("jasonstephen15@gmail.com", "Admin"));
+		for(String email: emails) {
 		  msg.addRecipient(Message.RecipientType.TO,
-		                   new InternetAddress(user.getEmail(),user.getNickname()));
+		                   new InternetAddress(email, "Yosef"));//user.getEmail(),user.getNickname())
+		}
 		  msg.setSubject("League Blog Updates!");
-		  msg.setText((String)recentPosts.get((0)).getProperty("Content"));
-//		  msg.setContent("<div class=\"card\">\r\n" + 
-//		  		"    			<h2>${fn:escapeXml(greeting_titleBox)}</h2>\r\n" + 
-//		  		"    			<h5>By: ${fn:escapeXml(greeting_user.nickname)}</h5> <h5 style=\"color:#D3D3D3\">${fn:escapeXml(greeting_date)}</h5>\r\n" + 
-//		  		"    			<hr>\r\n" + 
-//		  		"\r\n" + 
-//		  		"\r\n" + 
-//		  		"                <p>${fn:escapeXml(greeting_content)}</p>\r\n" + 
-//		  		"    			</div>", "text/html");
+		  msg.setText(message);
+
 		  Transport.send(msg);
 		} catch (AddressException e) {
 		  // ...
@@ -93,7 +111,7 @@ public class CronJob extends HttpServlet {
 		} catch (UnsupportedEncodingException e) {
 		  // ...
 		}
-    
+		resp.sendRedirect("/guestbook.jsp");
 	}
 	
 	

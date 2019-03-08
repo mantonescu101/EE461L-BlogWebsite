@@ -20,6 +20,8 @@ public class Greeting implements Comparable<Greeting> {
     @Index User user;
     @Index String content;
     @Index Date date;
+    
+    
     private Greeting() {}
     public Greeting(User user, String content, String guestbookName) {
         this.user = user;
